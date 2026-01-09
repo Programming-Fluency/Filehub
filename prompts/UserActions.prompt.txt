@@ -1,0 +1,61 @@
+createOrUpdateUser Prompt:
+
+Output:
+First, create a folder named server inside the app directory.
+ Inside the server folder, create another folder named actions.
+ Then, create a file named user.actions.ts inside server/actions.
+Start by typing ‘use server’ at the top.
+Inside this file, define this type:
+ClerkUserWebhookData: Represents the data we get from Clerk when a user is created or updated via a webhook.
+
+
+id: the unique Clerk user ID
+
+
+email_addresses: an array of email objects, each containing an email_address
+
+
+Optional fields: first_name, last_name, and username
+
+
+
+
+
+Next, create the createOrUpdateUser server action.
+This function:
+Accepts data of type ClerkUserWebhookData.
+
+
+Extracts the clerkUserId, email addresses, first name, last name, and username from the data.[Destructure them]
+
+
+Constructs a name by combining first and last name if available, otherwise uses the username or the local part of the email.
+
+
+Determines a username in a similar way.
+
+
+Uses Prisma’s upsert method to either update an existing user with the clerkUserId or create a new user if none exists.
+
+
+Returns the resulting user object.
+
+
+Catches and throws a descriptive error if something goes wrong, ensuring we can debug failed operations.
+Wrap the whole logic inside a try catch block.
+
+
+This server action allows the app to safely handle new users from Clerk or update existing users in a single, consistent operation.
+
+
+deleteUser Prompt:
+
+Output:
+Define a user action that accepts a clerkUserId of type string and deletes the corresponding user from the database.
+ Wrap the entire operation in a try-catch block as a best practice to handle errors gracefully.
+
+getUser Prompt:
+Output:
+Define a user action named getUser that takes a clerkUserId of type string, looks up the corresponding user in the database, and returns that user.
+ Wrap the entire operation in a try-catch block to handle any errors safely.
+
