@@ -1,0 +1,79 @@
+Schema Prompt:
+Output:
+ Write a Prisma schema specification for this app, defining the models and all fields explicitly. Include the following:[just the following and no extra fields]
+User model:
+
+
+id: unique string identifier, default UUID
+
+
+clerkUserId: unique string from authentication provider
+
+
+email: unique string
+
+
+name: string
+
+
+username: string
+
+
+onboarded: boolean, default false
+
+
+files: relationship to File model (one-to-many)
+
+
+File model:
+
+
+id: unique string identifier, default UUID
+
+
+title: string
+
+
+description: string
+
+
+coverImageURL: string
+
+
+fileURL: string, stores uploaded file link
+
+
+downloads: integer, default 0
+
+
+createdAt: datetime, default now
+
+
+userId: foreign key referencing User
+
+
+user: relation field linking back to User, cascading delete on user removal
+
+
+Make sure the schema:
+Is minimal (only 2 models) and production-ready [Do not add any extra things other than the things that i mentioned above]
+
+
+Uses Prisma best practices for data types, relations, and defaults
+
+
+Explains each field clearly with its purpose and constraints
+
+
+Can be directly implemented in Prisma after reviewing
+
+
+Constraints:
+Do not add extra models or fields
+
+
+Keep it small, clear, and maintainable
+
+
+Generate the schema in the schema.prisma file
+

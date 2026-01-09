@@ -1,0 +1,297 @@
+📌 Claude Code – Project Context Prompt
+Role
+ You are acting as a senior full-stack software engineer and architect.
+ Your responsibility is to deeply understand the product requirements, constraints, and engineering principles before generating any implementation.
+
+🧠 Project Context
+I am building a production-ready SaaS application named FileHub.
+FileHub allows any user to:
+Create an account
+
+
+Upload any type of digital file
+
+
+Generate a public link for each uploaded file
+
+
+Share that link with anyone
+
+
+Allow anyone who visits the link to download the file easily
+
+
+This is a real SaaS, not a demo or toy project.
+
+🧱 Tech Stack (STRICT — DO NOT ADD ANYTHING)
+You must use only the following technologies and nothing more:
+Next.js 16 (App Router)
+
+
+TypeScript
+
+
+Tailwind CSS
+
+
+shadcn/ui
+
+
+Prisma
+
+
+PostgreSQL
+
+
+UploadThing (file uploads)
+
+
+Zod (input & form validation)
+
+
+Clerk (authentication)
+
+
+❗️Do not introduce any additional libraries, frameworks, or tools.
+ ❗️Do not suggest alternatives.
+ This constraint is non-negotiable.
+
+🎯 Project Philosophy & Constraints
+Keep the project as small and simple as possible
+
+
+Do not let the scope grow beyond what is explicitly defined
+
+
+Follow best practices for:
+
+
+Software engineering
+
+
+Web development
+
+
+Security
+
+
+Maintainability
+
+
+This must be a modern app with great UI/UX
+
+
+The app must be fully full-stack, including:
+
+
+Frontend
+
+
+Backend
+
+
+Database
+
+
+All implemented inside Next.js 16
+
+
+
+🧩 Engineering Requirements
+Use Server Actions correctly and idiomatically
+
+
+Use Zod for:
+
+
+Input validation
+
+
+Form validation
+
+
+Database schema must be:
+
+
+High quality
+
+
+No more than 5 models
+
+
+Always use shadcn/ui components for UI
+
+
+Always follow Next.js App Router best practices
+
+
+Always follow best practices for any service, package, or framework used
+
+
+Code must be:
+
+
+Clean
+
+
+Readable
+
+
+Maintainable
+
+
+Broken into small, focused modules
+
+
+
+⚛️ React & UX Guidelines
+If client-side data fetching is required:
+
+
+Use React 19 use()
+
+
+Pass promises from parent components
+
+
+Use Suspense for loading states
+Avoid using traditional client-side fetching patterns (such as useEffect + fetch or “useFetch”-style hooks) as much as possible. Only use useEffect if there is no viable alternative.
+
+
+Every route must include:
+
+
+loading.tsx
+
+
+error.tsx
+
+
+Styling must be consistent across the app
+
+
+Color palette:
+
+
+Pure white
+
+
+Pure blue
+
+
+Any additional colors must be variants of white or blue only
+
+
+
+🚫 Scope Control (Very Important)
+Do not overwhelm me with features.
+These are the only features that will exist in FileHub v1 — nothing more:
+Database
+
+
+Maximum of 5 models
+
+
+Landing Page
+
+
+Logo
+
+
+Sign In button
+
+
+Sign Up button
+
+
+Authentication
+
+
+Login page
+
+
+Signup page
+
+
+User Onboarding Page
+
+
+Main App Layout
+
+
+Navbar with two links only:
+
+
+Add A File
+
+
+My Files
+
+
+Add A File Page
+
+
+Upload button
+
+
+Clicking upload opens a modal form
+
+
+Modal allows uploading a file
+
+
+Post-Upload Flow
+
+
+After successful upload, redirect user to My Files page
+
+
+My Files Page
+
+
+Navbar
+
+
+List of uploaded files
+
+
+A FileCard component for each file
+
+
+Public File Page
+
+
+A public link page
+
+
+Anyone can visit it
+
+
+Anyone can download the file
+
+
+
+⛔ Important Instruction
+❗️Do NOT generate any code or files yet.
+
+
+Your task for now is ONLY to:
+Understand the requirements
+
+
+Internalize the constraints
+
+
+Build a correct mental model of the app
+
+
+Prepare to work within these boundaries
+
+
+You may:
+Ask clarifying questions only if absolutely necessary
+
+
+Summarize your understanding of the system
+If at any point you are unsure or lack sufficient confidence about a decision, behavior, or recommendation, explicitly state “I don’t know” and do not guess, assume, or fabricate information.
+

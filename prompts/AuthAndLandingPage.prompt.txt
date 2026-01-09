@@ -1,0 +1,141 @@
+Landing Page auth-check Prompt:
+Output:
+In the app/page.tsx page, perform an authentication check by retrieving the clerkUserId using Clerk’s currentUser function from clerk.
+ If a clerkUserId exists, fetch the corresponding database user by calling a user action named getUser, passing the clerkUserId as an argument.
+ If a database user is found, check whether the user is onboarded:
+if the user is onboarded, redirect to /main
+
+
+if the user is not onboarded, redirect to /onboarding
+
+
+If there is no Clerk user, render the <LandingPage /> component
+Constraints:
+Do not define the getUser action yet.
+Do not create the /main or /onboarding routes yet.
+do not define the LandingPage component yet.
+
+
+LandingPage Prompt:
+Output:
+Create the LandingPage component inside the app/components folder.
+Inside the component, render a two-column layout:
+make the component full background white.
+On the left-hand side:
+
+
+At the top, render the slogan consisting of:
+
+
+A heading: File Sharing Made Simple
+
+
+A subtitle: Upload and share your files with public links that work everywhere.
+
+
+Below the slogan, render three steps:
+
+
+Sign Up
+
+
+Upload
+
+
+Share
+
+
+Each step should have an icon next to it.
+ Put the steps next to each others
+
+
+On the right-hand side:
+
+
+At the top, render the app logo coming from /assets/logo.svg.
+
+
+Below the logo, render two full-width buttons stacked vertically:
+
+
+The first button says Sign In, is pure blue, and links to /sign-in.
+
+
+The second button says Sign Up, is pure white, and links to /sign-up.
+Make the lefthandside and righthandside a bit closer to each others.
+And make the lefthandside a bit smaller in general and the right handside is a bit large in general , i mean make the logo bigger and the buttons wider.
+	Make the component responsive to all kind of devices.
+Constraints:
+Use components from shadcn and icons from lucide react when available.
+ Create only this component and do not implement or modify anything else.
+
+SEO Prompt:
+Output:
+In the app/layout.tsx file, define a clear and meaningful title and description of your choice that represent the FileHub app, making them suitable for both traditional search engines and AI-powered search engines.
+
+
+
+
+Prompt for creating (auth) route group:
+
+Output:
+Create a route group inside the app directory named (auth).
+
+
+Inside (auth), create two catch-all routes following this pattern app/sign-in/[[...sign-in]]/
+app/sign-up/[[...sign-up]]/
+
+
+
+Inside each route folder (sign-in and sign-up), create:
+
+
+loading.tsx file containing a skeleton/loading component that reflect the structure of sign-up and sign-in pages and use the shadcn skeleton component.
+
+
+
+error.tsx file containing a fallback error component and use shadcn Button component when you display a button in the error file.
+
+
+
+
+
+
+Constraints:
+
+
+Keep the code clean, readable and maintainable.
+Do not add extra routes or functionality outside of sign-in and sign-up.
+Do not create the page.tsx files for both routes just yet.
+Follow best practices for full-stack SaaS auth logic.
+
+Prompt for creating auth pages:
+
+Output:
+Create both the sign-in and sign-up pages.
+ For each page:
+Do an auth check exactly as you did in the landing page.
+Make the background of the sign-in and sign-up pages fully white.
+Split the layout into a left-hand side and a right-hand side.
+On the left-hand side, render:
+
+
+The app logo at the top
+
+
+Below it, the slogan
+
+
+Below the slogan, the same three steps used in the landing page
+put the steps next to each others
+On the right-hand side:
+
+
+Render the Clerk SignIn component on the sign-in page
+
+
+Render the Clerk SignUp component on the sign-up page
+
+Follow the code that i will provide from clerk official documentation at the end of this prompt.
+
+

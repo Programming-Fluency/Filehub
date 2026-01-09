@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// User model - stores user account information synced with Clerk authentication
+model User {
+  id          String   @id @default(uuid()) // Unique identifier for the user
+  clerkUserId String   @unique // Unique ID from Clerk authentication provider
+  email       String   @unique // User's email address, must be unique
+  name        String // User's full name
+  username    String // User's username
+  onboarded   Boolean  @default(false) // Tracks if user completed onboarding flow
+  files       File[] // One-to-many relationship: user can have multiple files
+}
+
+// File model - stores metadata and URLs for uploaded files
+model File {
+  id            String   @id @default(uuid()) // Unique identifier for the file
+  title         String // File title/name
+  description   String // File description
+  coverImageURL String // URL to the file's cover/preview image
+  fileURL       String // URL to the actual uploaded file (from UploadThing)
+  downloads     Int      @default(0) // Count of how many times file was downloaded
+  createdAt     DateTime @default(now()) // Timestamp when file was uploaded
+  userId        String // Foreign key linking to User who uploaded the file
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade) // Relation to User, cascades delete
+}
