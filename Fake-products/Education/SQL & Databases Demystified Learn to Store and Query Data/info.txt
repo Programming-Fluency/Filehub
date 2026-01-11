@@ -1,0 +1,4 @@
+SQL & Databases Demystified: Learn to Store and Query Data
+About This Book
+
+Every developer needs to understand databases. This ebook breaks down SQL in a beginner-friendly way and guides you through creating, querying, and managing databases. You’ll learn how to design schemas, write efficient queries, and integrate SQL into applications.

@@ -1,0 +1,4 @@
+React Made Simple: From Components to Advanced Hooks
+
+About This Book:
+React is the backbone of modern front-end development. In this ebook, you’ll learn React step by step—from components, props, and state, to advanced hooks, context, and performance optimizations—equipping you to create powerful, production-ready apps.

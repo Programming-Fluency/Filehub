@@ -1,0 +1,5 @@
+Mastering Python in 30 Days
+
+About This Book:
+This ebook is your roadmap to learning Python from scratch in just 30 days. Each chapter is structured with clear explanations, hands-on examples, and daily challenges to keep you on track.
+

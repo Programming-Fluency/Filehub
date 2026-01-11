@@ -1,0 +1,191 @@
+UploadThing Core.ts file Prompt:
+
+Output:
+Create a file named core.ts inside the app/api/uploadthing directory.
+This file will be responsible for defining and generating a FileUploader endpoint that supports uploading all kinds of digital files for the application including zip files.
+Implement this file by following the official UploadThing documentation that will be provided at the end of the prompt, ensuring it aligns with UploadThing’s recommended setup and best practices for Next.js App Router.
+Inside your onUploadComplete handler, return an object containing details about the uploaded file like this:
+return {
+  uploadedBy: metadata.userId,
+  fileUrl: file.ufsUrl,
+  fileName: file.name,
+  fileSize: file.size,
+};
+
+Constraints:
+Create only the core.ts file.
+Do not create, define, or modify anything else at this stage.
+
+
+Upload Validations prompt:
+output:
+Create a folder named validations inside the main route and add a file named upload.ts. Inside it, define the following schemas and types:
+
+ define a schema for the upload form users fill in on the front end.
+
+
+title:
+
+
+Must be a string.
+
+
+.trim() removes spaces at the start and end.
+
+
+Minimum length is 5 characters; maximum is 100.
+
+
+description:
+
+
+Must be a string.
+
+
+.trim() removes extra spaces.
+
+
+Minimum length is 50 characters; maximum is 500.
+
+
+This ensures users cannot submit forms with missing or too-short content.
+
+Then create a schema that is used on the server when saving the file to the database.
+
+
+Includes everything from the client schema plus:
+
+
+coverImageURL and fileURL: must be valid URLs.
+
+
+fileName: cannot be empty.
+
+
+fileSize: must be a positive number.
+
+
+clerkUserId: must be a non-empty string representing the user who uploaded the file.
+
+
+Ensures all data entering the database is correct and safe.
+
+
+Then export these types
+UploadFileFormData represents the data shape for the client form.
+
+
+CreateFileData represents the data shape for the server/database.
+
+Constraint:
+Do not define or create anything else.
+
+uploadFileForm Prompt:
+
+Output:
+Create a component named UploadFileForm inside the main/components folder.
+
+1. Define the uploaded file data type
+Explain this in text:
+Create a TypeScript type named UploadedFileData.
+This type represents metadata returned after a successful file upload.
+It should include:
+fileUrl: the public URL of the uploaded file.
+fileName: the original name of the file.
+fileSize: the size of the file in bytes.
+uploadedBy: the ID of the user who uploaded the file.
+type UploadedFileData = {
+  fileUrl: string;
+  fileName: string;
+  fileSize: number;
+  uploadedBy: string;
+};
+
+
+2. Initialize the form
+Initialize a React Hook Form instance.
+Infer the form type from UploadFileFormData.
+Use the Zod resolver connected to the upload form schema.
+Set default values for:
+title → empty string
+description → empty string
+
+3. Handle form submission
+Create a handleSubmit function that receives data of type UploadFileFormData.
+Inside this function:
+If there is no cover image, show an error toast and return.
+If there is no uploaded file, show an error toast and return.
+If there is no authenticated user, show an error toast and return.
+Set an isSubmitting state to true.
+
+4. Call the create file server action
+Explain this in text:
+Call a server action named createFile from the file actions.
+Pass the form data and uploaded file metadata to it in the following structure:
+const result = await createFile({
+  title: data.title,
+  description: data.description,
+  coverImageURL: coverImage.fileUrl,
+  fileURL: uploadedFile.fileUrl,
+  fileName: uploadedFile.fileName,
+  fileSize: uploadedFile.fileSize,
+  clerkUserId: user.id,
+});
+
+
+5. Handle the response
+If result.success is true:
+Show a success toast.
+Redirect the user to /main/files.
+Otherwise:
+Show an error toast.
+Set isSubmitting back to false.
+
+6. Render the form UI
+Render a React Hook Form following the official React Hook Form documentation that will be provided at the end of the prompt.
+The form should include:
+Title field
+Description field
+Cover image upload
+File upload
+Cancel button
+Submit button
+While submitting:
+Disable the submit button.
+Change its label to indicate a submitting state.
+
+Constraints
+Do not define or create anything else just yet, including file actions or additional components.
+
+creatFile Prompt:
+create a server action inside the file actions file that does the following:
+takes data of type CreateFileData and safe-parse it using createFileSchema, and if it is not successful, return:
+{
+  success: false,
+  error: validatedData.error.issues[0].message,
+}
+
+then get the database user by calling the getUser action using validatedData.data.clerkUserId
+if no database user is found, return:
+{
+  success: false,
+  error: "User not found",
+}
+
+then create a file in the database using the following data:
+title: validatedData.data.title
+description: validatedData.data.description
+coverImageURL: validatedData.data.coverImageURL
+fileURL: validatedData.data.fileURL
+userId: dbUser.id
+then return:
+{
+  success: true,
+  file,
+}
+
+and catch errors gracefully
+constraints:
+do not create or define anything else
+
+

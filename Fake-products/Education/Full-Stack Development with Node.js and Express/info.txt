@@ -1,0 +1,4 @@
+Full-Stack Development with Node.js and Express
+
+About This Book:
+Node.js and Express power some of the world’s most popular applications. This ebook walks you through backend development, APIs, authentication, and connecting to databases—all while building real-world projects you can deploy.

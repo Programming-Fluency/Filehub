@@ -26,7 +26,7 @@ export default async function SignInPage() {
   }
 
   return (
-    <div className="min-h-screen w-full bg-white flex items-center justify-center px-4 py-8">
+    <div className="min-h-screen w-full bg-white flex items-center justify-center px-4 py-8 animate-fade-in">
       <div className="w-full max-w-7xl grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         {/* Left Side - Logo, Slogan, and Steps */}
         <div className="space-y-8 lg:space-y-12">

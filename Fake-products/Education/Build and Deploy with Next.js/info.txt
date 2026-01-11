@@ -1,0 +1,5 @@
+Build and Deploy with Next.js
+
+
+About This Book:
+Next.js has become the go-to framework for modern React development. This ebook will guide you through building, optimizing, and deploying full-stack web apps.

@@ -1,0 +1,144 @@
+Main Route Prompt:
+Output:
+Create a route named main inside the app directory.
+Inside this route, create the following files only:
+loading.tsx
+Create a simple loading skeleton that fits the main page. This page will eventually contain an upload button, so the skeleton should visually represent a basic loading state for that layout.
+error.tsx
+Create an error fallback file for the main route.
+layout.tsx
+Create a layout component named MainLayout that renders:
+a Navbar
+the children
+a Footer
+Constraints:
+Create only these files.
+Do not define or implement anything else.
+
+
+Navbar and Footer Prompts:
+
+Output:
+Create a components folder inside the main route.
+
+Navbar component
+Inside the components folder, create a Navbar component with the following structure and behavior:
+Import the required utilities for images and navigation from Next.js.
+Use Clerk’s UserButton to display the authenticated user menu.
+Import two icons to represent uploading files and viewing files.
+The Navbar should render:
+A <nav> element that is sticky at the top, has a bottom border, a white background, and a subtle shadow.
+A centered container that limits the width of the content and adds horizontal padding.
+A horizontal layout with three main sections:
+Left side:
+The application logo rendered as an image.
+The logo should link to the /main route and have a hover animation that slightly scales it up.
+Center:
+Two navigation links aligned in the center of the navbar:
+“Add File” linking to /main, with an upload icon next to the text.
+“My Files” linking to /main/files, with a folder icon next to the text.
+Both links should have hover effects that change color, scale slightly, and animate smoothly.
+Right side:
+The Clerk UserButton, also with a subtle hover scale animation.
+
+Footer component
+Inside the same components folder, create a Footer component with the following structure:
+Render a <footer> element with a top border and white background.
+Inside it, use a centered container with padding.
+Display two lines of centered text:
+The first line shows the current year dynamically and the text “FileHub. All rights reserved.”
+The second line below it shows the slogan “File Sharing Made Simple” in a lighter gray tone.
+The footer should sit naturally at the bottom of the layout and visually match the clean, minimal style of the Navbar.
+Constraints:
+Create only these files.
+Do not define or implement anything else.
+
+Main Page Prompt:
+Output:
+Create the main page for the main route inside a page.tsx file.
+This page should be an async server component responsible for authentication and onboarding checks before rendering the main UI.
+Explain and implement the logic as follows:
+Import the currentUser function from Clerk’s server SDK to determine whether a user is authenticated.
+
+
+Import the redirect utility from Next.js navigation to handle conditional redirects.
+
+
+Import a user server action named getUser to fetch the corresponding database user using the Clerk user ID.
+
+
+Import an UploadFileModal component from the local components folder. This will be the UI rendered when all checks pass.
+
+
+Inside the main page function:
+Call currentUser() to check if there is a signed-in Clerk user.
+
+
+If no Clerk user exists, immediately redirect the user to the /sign-in page.
+
+
+If a Clerk user exists, call the getUser server action using the Clerk user’s ID to fetch the database user.
+
+
+If no database user is found, redirect to /sign-in as a safety fallback.
+
+
+If the database user exists but is not onboarded, redirect the user to the /onboarding route.
+
+
+If the user is authenticated, exists in the database, and is onboarded, render the UploadFileModal component as the main content of the page.
+
+
+Constraints:
+Do not create or define anything else beyond this page.
+
+UploadFileModal Prompt:
+
+Output:
+Create a client component inside main/components named UploadFileModal.
+implement it as follows:
+Mark the component as a client component since it relies on interactive UI elements like dialogs and buttons.
+
+
+Import an upload icon to visually represent the upload action.
+
+
+Use a reusable Button component for consistent styling.
+
+
+Use dialog-related UI components to create a modal experience: a trigger button, modal content, header, title, and description.
+
+
+Import an UploadFileForm component, which will later handle the actual file upload logic (do not define it yet).
+
+
+The component should render a full-height page section with padding and a subtle fade-in animation. Inside a centered container:
+Display a heading that clearly communicates the main action, encouraging users to upload their files.
+
+
+Show a short description explaining that files can be shared using a public link.
+
+
+Render a modal dialog:
+
+
+The dialog trigger should be a prominent blue button labeled “Upload File” with an upload icon.
+
+
+When clicked, the dialog opens and displays:
+
+
+A title indicating the upload action.
+
+
+A short description explaining what the upload does.
+
+
+The UploadFileForm component inside the dialog body.
+
+
+The overall layout should feel centered, clean, and focused on the upload action, making it obvious what the user should do next.
+Create the modal dialog using the shadcn/ui Dialog component, following the official shadcn dialog implementation that I will provide at the end of the prompt.
+Constraint:
+ Do not create or define any other files at this stage.
+

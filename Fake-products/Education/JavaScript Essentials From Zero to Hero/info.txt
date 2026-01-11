@@ -1,0 +1,4 @@
+JavaScript Essentials: From Zero to Hero
+
+About This Book:
+JavaScript powers the modern web, and this ebook is designed to help you master it step by step. From the fundamentals to building interactive web applications, you’ll gain practical coding experience.

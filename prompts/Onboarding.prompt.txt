@@ -1,0 +1,134 @@
+Onboarding route Prompt:
+Output:
+Create a new route named onboarding inside the app directory, and inside it create two files:
+loading.tsx → for the loading skeleton
+
+
+error.tsx → for the error fallback
+
+
+Constraints:
+Do not create or define anything else.
+
+Onboarding page prompt:
+
+Output:
+Create the onboarding/page.tsx file as the OnboardingPage.
+Inside this file:
+Make an auth check using Clerk to see if there is a clerkUserId.
+If no clerkUserId exists, redirect to /sign-up.
+Initialize a dbUser constant by calling the getUser action with clerkUser.id.
+If no dbUser is returned, redirect to /sign-up.
+Check if dbUser is already onboarded.
+If yes, redirect to /main.
+Otherwise, render the <OnboardingForm user={dbUser} /> component.
+Constraint: Do not define or create anything else.
+
+
+Onboarding schema Prompt:
+Output :
+Create a validation schema inside the file onboarding/validations/onboarding.ts.
+Inside this file:
+Import Zod to define the schema.
+
+
+Define a onboardingFormSchema using z.object for validating the onboarding form fields:
+
+
+name: Must be a string, required (min(1)), and at most 50 characters (max(50)).
+
+
+username: Must be a string, trimmed, converted to lowercase, required (min(1)), max 50 characters (max(50)), and match a regex allowing only lowercase letters, numbers, hyphens, and underscores (/^[a-z0-9_-]+$/).
+
+
+email: Must be a valid email format like that: email: z.email({ pattern: z.regexes.email })
+
+
+
+Infer a TypeScript type from the schema using z.infer<typeof onboardingFormSchema> and export it as OnboardingFormData.
+
+
+This ensures that all data submitted in the onboarding form is validated correctly before being processed or saved in the database.
+
+
+Constraint: Do not define or create anything else.
+
+
+Onboarding form Prompt:
+
+Output (explained in text):
+Create a components folder inside the onboarding directory, and inside it create the OnboardingForm component.
+First, define a TypeScript type named OnboardingFormProps to describe the props expected by the component.
+ This interface should include a user object containing the following fields:
+clerkUserId as a string
+
+
+name as a string
+
+
+email as a string
+
+
+username as a string
+
+
+Next, create a form following the official react-hook-form  form documentation (which will be provided at the end of the prompt).
+Inside the form:
+Initialize a form instance using React Hook Form, with default values coming from the user prop or falling back to empty strings.
+
+
+Implement an onSubmit function that calls a user action named onboardUser, passing user.clerkUserId and the submitted form data as arguments.
+
+
+In the submission logic:
+If the action succeeds, show a success toast with the provided styling:
+
+
+Message: “Welcome to FileHub!”
+
+
+Description: “Your account is all set up. Let’s get started!”
+
+
+Positioned at the top center
+
+
+Styled using light blue background, blue border, and dark blue text
+
+
+After showing the success toast, redirect the user to the /main route using the Next.js router.
+
+
+If the action fails, show an error toast instead.
+
+
+Wrap the entire submission logic in a try-catch block to handle errors safely.
+Finally, return the form UI that displays and submits the user data as described above, strictly following the documentation that will be provided at the end of the prompt.
+Constraint: Do not define or create anything else.
+
+
+
+onboardUser Prompt:
+Output:
+First, define a TypeScript type named OnboardingData.
+This type represents the data submitted during user onboarding and should include:
+name as a string
+email as a string
+username as a string
+Next, create an onboardUser server action inside the user actions file.
+This server action should:
+Accept two arguments:
+clerkUserId as a string
+data of type OnboardingData
+Validate the incoming data against the onboarding Zod schema using safeParse.
+If validation fails, immediately return an object indicating failure along with the first validation error message.
+If validation succeeds, update the user in the database using Prisma:
+Look up the user by clerkUserId
+Update the user’s name, email, username
+Set onboarded to true
+Return a success response containing the updated user when the operation succeeds.
+Wrap the entire logic in a try-catch block:
+If an error occurs, return a failure response with a clear error message.
+Constraints:
+Do not define or create anything else.
+
