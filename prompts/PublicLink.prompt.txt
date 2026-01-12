@@ -1,0 +1,141 @@
+Public Link Route Prompt:
+Create a route for the public file download page that allows users to access a file via a public link:
+Inside the app directory, create a folder: file/[fileId]
+
+
+Inside this folder, add:
+
+
+loading.tsx → to show the loading skeleton while the file data is being fetched
+
+
+error.tsx → to show an error fallback if something goes wrong
+
+
+This setup prepares the dynamic route for each file by its fileId.
+Do not create or define anything else for now.
+
+
+FilePublicPage Prompt:
+Create the FilePublicPage inside app/file/[fileId]/page.tsx:
+Define the props type:
+
+
+type FilePageProps = {
+  params: Promise<{
+    fileId: string;
+  }>;
+};
+
+Inside the page component:
+
+
+Destructure the fileId:
+
+ const { fileId } = await params;
+
+
+Fetch the file using the getFile server action.
+
+
+If the result is not successful, throw an error.
+
+
+Extract the file:
+
+ const file = result.file ?? null;
+
+
+If no file, throw an error.
+
+
+Render the app logo at the top.
+
+
+Render the FileCard component below it.
+
+
+Render a DownloadButton like this:
+
+ <DownloadButton fileURL={file.fileURL} fileName={file.title} fileId={file.id} />
+
+Constraints: Do not define or create any server actions, types, or components—just this page.
+
+
+
+geFile Prompt:
+Create the getFile server action inside the file actions file:
+Function signature:
+export async function getFile(fileId: string) {
+
+Logic:
+Wrap everything in a try/catch block.
+Query the database to get the file by its id.
+If no file is found, return:
+return {
+  success: false,
+  error: "File not found",
+};
+
+Otherwise, return:
+return {
+  success: true,
+  file,
+};
+
+In the catch block, handle errors gracefully and return an object with success: false and an error message.
+Constraints: Do not define or create anything else, only this action.
+
+
+
+
+
+DownloadButton Prompt:
+
+Create the DownloadButton component inside file/[fileId]/components:
+Props type:
+type DownloadButtonProps = {
+  fileURL: string;
+  fileName: string;
+  fileId: string;
+};
+
+Logic:
+Use a useState hook to track isDownloading.
+handleDownload function:
+Set isDownloading to true.
+Fetch the file as a blob from fileURL.
+If fetch fails, throw an error.
+Create a blob URL and a temporary anchor element to trigger the download with fileName.
+Clean up the blob URL after download.
+Call incrementDownload(fileId) to update the download count.
+Show a success toast on completion or an error toast if failed.
+Set isDownloading back to false.
+Render:
+A <Button> that calls handleDownload on click.
+Disable the button while downloading.
+Show a spinner (Loader2) and “Downloading...” while isDownloading is true.
+Otherwise, show the download icon (Download) and “Download File”.
+Constraints: Do not define or create anything else, just this component.
+
+incrementDownload Prompt:
+Output:
+Create a server action in the user’s file actions file for incrementing the download count of a file.
+The function should be named incrementDownload and take a single argument fileId of type string.
+
+
+Inside the function, use a try/catch block for error handling.
+
+
+In the try block, update the downloads field of the file in the database using Prisma by incrementing it by 1. Use the file’s id to locate it.
+
+
+If the update is successful, return an object: { success: true }.
+
+
+If an error occurs, catch it, get the error message if it exists, and return { success: false, error: "Failed to increment download: <error message>" }.
+
+
+Constraint: Do not create or define anything else—only this server action.
+
+

@@ -178,7 +178,7 @@ export default function UploadFileForm() {
             }}
           />
           {coverImage && (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-green-600">
               Uploaded: {coverImage.fileName}
             </p>
           )}
@@ -205,7 +205,7 @@ export default function UploadFileForm() {
             }}
           />
           {uploadedFile && (
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-green-600">
               Uploaded: {uploadedFile.fileName}
             </p>
           )}

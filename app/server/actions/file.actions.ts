@@ -6,6 +6,7 @@ import {
   createFileSchema,
   CreateFileData,
 } from "@/app/main/validations/upload";
+import { revalidatePath } from "next/cache";
 
 export async function createFile(data: CreateFileData) {
   try {
@@ -49,6 +50,129 @@ export async function createFile(data: CreateFileData) {
     return {
       success: false,
       error: "Failed to create file. Please try again.",
+    };
+  }
+}
+
+export async function getFiles(clerkUserId: string) {
+  try {
+    // Get the database user
+    const dbUser = await getUser(clerkUserId);
+
+    if (!dbUser) {
+      return {
+        success: false,
+        error: "User not found",
+      };
+    }
+
+    // Query the database to retrieve all files belonging to this user
+    const files = await prisma.file.findMany({
+      where: {
+        userId: dbUser.id,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    return {
+      success: true,
+      files,
+    };
+  } catch (error) {
+    console.error("Error fetching files:", error);
+    return {
+      success: false,
+      error: "Failed to fetch files. Please try again.",
+    };
+  }
+}
+
+export async function deleteFile(fileId: string) {
+  try {
+    // Check if the file exists
+    const file = await prisma.file.findUnique({
+      where: {
+        id: fileId,
+      },
+    });
+
+    if (!file) {
+      return {
+        success: false,
+        error: "File not found",
+      };
+    }
+
+    // Delete the file from the database
+    await prisma.file.delete({
+      where: {
+        id: fileId,
+      },
+    });
+    revalidatePath('/main/files')
+    return {
+      success: true,
+    };
+  } catch (error) {
+    console.error("Error deleting file:", error);
+    return {
+      success: false,
+      error: "Failed to delete file. Please try again.",
+    };
+  }
+}
+
+export async function getFile(fileId: string) {
+  try {
+    const file = await prisma.file.findUnique({
+      where: {
+        id: fileId,
+      },
+    });
+
+    if (!file) {
+      return {
+        success: false,
+        error: "File not found",
+      };
+    }
+
+    return {
+      success: true,
+      file,
+    };
+  } catch (error) {
+    console.error("Error fetching file:", error);
+    return {
+      success: false,
+      error: "Failed to fetch file. Please try again.",
+    };
+  }
+}
+
+export async function incrementDownload(fileId: string) {
+  try {
+    await prisma.file.update({
+      where: {
+        id: fileId,
+      },
+      data: {
+        downloads: {
+          increment: 1,
+        },
+      },
+    });
+
+    return {
+      success: true,
+    };
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    return {
+      success: false,
+      error: `Failed to increment download: ${errorMessage}`,
     };
   }
 }

@@ -1,0 +1,142 @@
+Files route prompt:
+
+Output:
+Create a new route inside the main route named files.
+Inside this files route, add the following files:
+loading.tsx
+This file will be responsible for rendering loading skeletons while the files page data is being fetched.
+error.tsx
+This file will handle and display errors that occur while loading or rendering the files page.
+Only create this route and these two files for now, without adding any additional logic or components yet.
+
+
+Files Page Prompt:
+Output:
+Create a FilesPage inside the existing main/files route.
+The page should follow this logic, described step by step in text:
+First, check authentication by retrieving the current Clerk user.
+
+
+If there is no Clerk user ID, immediately redirect the user to the /sign-in page.
+
+
+Next, fetch the database user by calling the getUser server action using the Clerk user ID.
+
+
+If no database user is found, redirect the user to /sign-in.
+
+
+After confirming the user exists, call a server action named getFiles, passing the clerkUser.id as its argument.
+
+
+If the result is not successful, throw an error to be handled by the route’s error boundary.
+
+
+Extract the files from the result using this logic:
+
+
+If files exist, use them.
+
+
+Otherwise, default to an empty array:
+
+
+const files = result.files ?? [];
+Render a FileCard component for each file in the files array.
+
+
+Handle the empty state by displaying a clear message or UI when the user has no uploaded files.
+
+
+Constraints:
+Do not create or define any additional files, components, or server actions at this stage.
+
+getFiles Prompt:
+Output:
+Create a getFiles server action inside the existing file actions file.
+Define a function named getFiles that accepts a single argument:
+clerkUserId of type string
+Inside the function, first retrieve the database user by calling the getUser action with the provided clerkUserId.
+If no database user is found, immediately return this object:
+success set to false
+an error message stating "User not found"
+If the user exists, query the database to retrieve all files that belong to this user.
+On a successful query:
+Return an object with success: true
+Include the retrieved files in a files property
+Wrap the entire logic in a try–catch block.
+If any error occurs during execution:
+Handle it gracefully by returning success: false
+Include a clear, user-friendly error message describing that fetching files failed
+Constraints:
+Do not create or define anything else beyond this getFiles action.
+
+
+
+FileCard Prompt:
+
+Create a FileCard component inside the main/components folder as follows:
+Define a props type named FileCardProps with the following fields:
+
+
+coverImageURL: string
+
+
+title: string
+
+
+description: string
+
+
+fileId: string
+
+
+downloads: number
+
+
+The component should visually render:
+
+
+The cover image using the provided coverImageURL
+
+
+The file title
+
+
+The file description
+
+
+The number of downloads
+
+
+When displaying downloads:
+
+
+If the number of downloads is zero display the text ‘No downloads’ and if the number of downloads is equal to 1, show the text “download”
+
+
+Otherwise, show “downloads”
+
+
+Add a Share button to the card.
+
+
+When the Share button is clicked:
+
+
+Construct a public file link using this format:
+ ${process.env.NEXT_PUBLIC_APP_URL}/file/${fileId}
+
+
+Copy that link to the user’s clipboard
+Give the user a toast confirming that the file is copied to their clipboard.
+ 
+Constraint: Do not create or define anything else beyond this FileCard component.
+
+deleteFile Prompt:
+Output:
+Create a delete file feature by updating the FileCard component to include a Delete File button. When this button is clicked, it should call a server action named deleteFile from the file actions file, following best practices such as proper error handling and user feedback.
+Constraints:
+Do not define or create anything else.
+
+

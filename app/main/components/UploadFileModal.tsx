@@ -37,7 +37,7 @@ export default function UploadFileModal() {
               Upload File
             </Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-md">
+          <DialogContent className="sm:max-w-md max-h-[85vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>Upload a New File</DialogTitle>
               <DialogDescription>
