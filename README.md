@@ -10,6 +10,7 @@ This is a Prompt Engineering + Modern Full-Stack Development course.
 You’ll learn how to guide AI agents with well-structured prompts, get exactly the code you want, and delegate repetitive work to AI — while you stay in control as the engineer.
 
 🔗 Links
+
 🎥 Watch the Full Course on YouTube: 👉 https://youtu.be/hxEHFOz5ADQ
 
 PrismaPostgres: 👉 https://www.prisma.io/?via=programmingfluency
